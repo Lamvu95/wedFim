@@ -1,0 +1,56 @@
+.slide-holder {
+    margin: 0 auto;
+}
+
+.slide-container { /*slide-container là khối bao mà slide-stage có thể "trượt" bên trong */
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slide-stage {
+    position: absolute;
+}
+
+.slide-image { /*Độ rộng của .slide-image có thể được thay đổi theo nhu cầu, ảnh hưởng đến độ rộng chung của slideshow*/
+    float: left;
+    width: 180px;
+    max-height: 295px;
+    text-align: center;
+}
+
+    .slide-image img {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+.slide-pager {
+    position: relative;
+}
+
+.slide-control-prev {
+    position: absolute;
+    text-align: center;
+    width: 19px;
+    height: 60px;
+    background: #312f2b;
+    line-height: 60px;
+    color: #fff;
+    cursor: pointer;
+    top: 110px;
+    left: -18px;
+}
+
+.slide-control-next {
+    position: absolute;
+    text-align: center;
+    width: 19px;
+    height: 60px;
+    background: #312f2b;
+    line-height: 60px;
+    color: #fff;
+    cursor: pointer;
+    right: -18px;
+    top: 110px;
+}

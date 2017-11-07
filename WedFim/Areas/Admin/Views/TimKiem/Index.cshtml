@@ -1,0 +1,109 @@
+﻿@model PagedList.IPagedList<Model.EF.Table_Fim>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section head{
+    tim kiem
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Bang Phim
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" style="overflow-x:scroll;max-height:500px">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            Tên Phim
+                        </th>
+                        <th>
+                            Ảnh Phim
+                        </th>
+                        <th>
+                            Tên Diễn Viên
+                        </th>
+                        <th>
+                            Ảnh Diễn Viên
+                        </th>
+                        <th>
+                            Đạo Diễn
+                        </th>
+                        <th>
+                            Năm Sản Xuất
+                        </th>
+                        <th>
+                            Nơi Sản Xuất
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                        <th>
+                            Thể Loại
+                        </th>
+                        <th>
+                            Người Up
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameFim)
+                            </td>
+                            <td>
+                                <img src="~/Content/image_webfim/@item.AnhPhim" style="width:50px; height:70px;" />
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenDienVien)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnhDienVien)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DaoDien)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NamSanXuat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoiSanXuat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rating)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Slide)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.url)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDTheLoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDUserName)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <div style="float:right ">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @searchTerm = @ViewBag.SearchTerm }))
+            </div>
+        </div>
+    </div>
+</div>
