@@ -30,6 +30,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Chucvu)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUser)
+        </th>
         <th></th>
     </tr>
 
@@ -52,6 +55,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Chucvu)
+        </td>
+        <td>
+            <img src="~/Content/image_webfim/@item.ImageUser" style="width:50px; height:70px;" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IDUserName }) |

@@ -46,8 +46,9 @@ namespace WedFim.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDUserName,NameUser,PassUser,ConfirmPassUser,NgaySinh,GioiTinh,SDT,Chucvu")] Table_Username table_Username)
+        public ActionResult Create([Bind(Include = "IDUserName,NameUser,PassUser,ConfirmPassUser,NgaySinh,GioiTinh,SDT,Chucvu,ImageUser")] Table_Username table_Username)
         {
             if (ModelState.IsValid)
             {
@@ -81,8 +82,9 @@ namespace WedFim.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDUserName,NameUser,PassUser,ConfirmPassUser,NgaySinh,GioiTinh,SDT,Chucvu")] Table_Username table_Username)
+        public ActionResult Edit([Bind(Include = "IDUserName,NameUser,PassUser,ConfirmPassUser,NgaySinh,GioiTinh,SDT,Chucvu,ImageUser")] Table_Username table_Username)
         {
             if (ModelState.IsValid)
             {
@@ -113,6 +115,7 @@ namespace WedFim.Areas.Admin.Controllers
 
         // POST: Admin/Table_Username/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -129,6 +132,19 @@ namespace WedFim.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public string ProcesUpload(HttpPostedFileBase file)
+        {
+
+            // var NameImage = Guid.NewGuid() + file.FileName;
+            // var NameImage = System.IO.Path.GetExtension(file.FileName);
+
+            var NameImage = System.IO.Path.GetRandomFileName() + file.FileName;
+            file.SaveAs(Server.MapPath("~/Content/image_webfim/" + NameImage));
+
+            return NameImage;
+
+
         }
     }
 }

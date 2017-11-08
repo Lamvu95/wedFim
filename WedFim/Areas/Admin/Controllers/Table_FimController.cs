@@ -45,6 +45,7 @@ namespace WedFim.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDFim,NameFim,IDTheLoai,TenDienVien,AnhDienVien,ThongTinBoFim,DaoDien,NamSanXuat,NoiSanXuat,Rating,IDUserName,AnhPhim,Slide,url")] Table_Fim table_Fim)
         {
@@ -70,6 +71,7 @@ namespace WedFim.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(table_Fim);
         }
 
@@ -77,6 +79,7 @@ namespace WedFim.Areas.Admin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDFim,NameFim,IDTheLoai,TenDienVien,AnhDienVien,ThongTinBoFim,DaoDien,NamSanXuat,NoiSanXuat,Rating,IDUserName,AnhPhim,Slide,url")] Table_Fim table_Fim)
         {
@@ -93,19 +96,22 @@ namespace WedFim.Areas.Admin.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
+            {  
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Table_Fim table_Fim = db.Table_Fim.Find(id);
             if (table_Fim == null)
             {
+              
                 return HttpNotFound();
             }
+           
             return View(table_Fim);
         }
 
         // POST: Admin/Table_Fim/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -126,21 +132,14 @@ namespace WedFim.Areas.Admin.Controllers
         public string ProcesUpload(HttpPostedFileBase file)
         {
 
-            var Class1 = new UserDAO();
-            var a = Class1.Kt(file.FileName);
-            if (a)
-            {
-                var files = file.FileName.Replace(".jpg", "1.jpg");
-                file.SaveAs(Server.MapPath("~/Content/image_webfim/" + files));
-                ViewBag.Image = files;
-                return files;
-            }
-            else
-            {
-                file.SaveAs(Server.MapPath("~/Content/image_webfim/" + file.FileName));
-                ViewBag.Image = file.FileName;
-                return file.FileName;
-            }
+               // var NameImage = Guid.NewGuid() + file.FileName;
+            // var NameImage = System.IO.Path.GetExtension(file.FileName);
+
+            var NameImage = System.IO.Path.GetRandomFileName() +file.FileName;
+            file.SaveAs(Server.MapPath("~/Content/image_webfim/" + NameImage));
+              
+                return NameImage;
+            
 
         }
     }

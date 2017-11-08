@@ -17,6 +17,7 @@ namespace Model.EF
         }
 
         [Key]
+        
         public int IDFim { get; set; }
 
         public string NameFim { get; set; }

@@ -70,6 +70,19 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ImageUser, htmlAttributes: new { @class = "control-label col-md-2" })
+            <input class="form-control text-box single-line" id="ImageUser" name="ImageUser" type="text" value="" style=" display: none;">
+            @Html.ValidationMessageFor(model => model.ImageUser, "", new { @class = "text-danger" })
+            <img id="pictureUpload" width="400" style="max-width:400px;max-height:300px; border: 1px solid red" />
+            <div class="col-md-2">
+                <div class="form-inline">
+                    <input type="file" id="fileUpload" accept="images/*" name="fileUpload" style="display:none;" />
+                    <input type="button" id="btnUpload" value="Chọn ảnh" class=" btn btn-success" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -80,3 +93,52 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section upload
+{
+    <script>
+        $(function () {
+            $('#pictureUpload').hide()
+
+            //dang ky su kien click
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click')
+                $('#pictureUpload').show()
+            });
+
+            // bat su kien change data cua fileUpload
+            $('#fileUpload').change(function () {
+                //kiem tra trinh duyen co ho tro formdata hay ko
+
+                if (window.FormData !== undefined) {
+                    var fileUpload = $('#fileUpload').get(0);
+                    var files = fileUpload.files;
+                    var formData = new FormData();
+                    formData.append('file', files[0]);
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '/Admin/Table_Username/ProcesUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr("src", "/Content/image_webfim/" + urlImage);
+                            $('#ImageUser').val(urlImage);
+
+                        },
+                        error: function (err) {
+                            alert('co loi khi upload: ', err.statusText)
+                        }
+
+                    });
+                }
+            });
+
+
+        });
+
+    </script>
+
+
+
+}

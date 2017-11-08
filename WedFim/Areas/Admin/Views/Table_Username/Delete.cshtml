@@ -13,39 +13,17 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NameUser)
+          Tên User:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.NameUser)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PassUser)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PassUser)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
+            @Html.DisplayNameFor(model => model.SDT):
         </dt>
 
         <dd>
@@ -53,11 +31,18 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Chucvu)
+            @Html.DisplayNameFor(model => model.Chucvu):
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Chucvu)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUser)
+        </dt>
+
+        <dd>
+            <img id="anhphimxx" src="~/Content/image_webfim/@Model.ImageUser" width="400" style="max-width:400px;max-height:226px; border: 1px solid red" />
         </dd>
 
     </dl>
@@ -71,3 +56,52 @@
         </div>
     }
 </div>
+@section upload
+{
+    <script>
+        $(function () {
+            $('#pictureUpload').hide()
+
+            //dang ky su kien click
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click')
+                $('#pictureUpload').show()
+            });
+           
+            // bat su kien change data cua fileUpload
+            $('#fileUpload').change(function () {
+                //kiem tra trinh duyen co ho tro formdata hay ko
+
+                if (window.FormData !== undefined) {
+                    var fileUpload = $('#fileUpload').get(0);
+                    var files = fileUpload.files;
+                    var formData = new FormData();
+                    formData.append('file', files[0]);
+                    $.ajax({
+
+                        type: 'POST',
+                        url: '/Admin/Table_Fim/ProcesUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr("src", "/Content/image_webfim/" + urlImage);
+                            $('#AnhPhim').val(urlImage);
+
+                        },
+                        error: function (err) {
+                            alert('co loi khi upload: ', err.statusText)
+                        }
+
+                    });
+                }
+            });
+
+
+        });
+
+    </script>
+
+
+
+}

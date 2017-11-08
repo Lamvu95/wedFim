@@ -7,10 +7,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Table_Fim</h4>
         <hr />
@@ -94,27 +94,20 @@
                 @Html.ValidationMessageFor(model => model.IDUserName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.AnhPhim, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.AnhPhim, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AnhPhim, "", new { @class = "text-danger" })
-            </div>
-
+            <input class="form-control text-box single-line" id="AnhPhim" name="AnhPhim" type="text" value="" style=" display: none;">
+            @Html.ValidationMessageFor(model => model.AnhPhim, "", new { @class = "text-danger" })
+            <img id="pictureUpload" width="400" style="max-width:400px;max-height:300px; border: 1px solid red" />
             <div class="col-md-2">
                 <div class="form-inline">
-                    @*chon hinh anh <input type="text" name="picture" id="picture" class="form-control" />*@
                     <input type="file" id="fileUpload" accept="images/*" name="fileUpload" style="display:none;" />
-                    <input type="button" id="btnUpload" value="..." class=" btn btn-success" />
-
+                    <input type="button" id="btnUpload" value="Chọn ảnh" class=" btn btn-success" />
                 </div>
             </div>
-            <div class="col-md-2">
-                <img id="pictureUpload" width="100" />
-            </div>
-
         </div>
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.Slide, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -145,19 +138,20 @@
 @section upload
 {
     <script>
-        $(function() {
+        $(function () {
+            $('#pictureUpload').hide()
 
             //dang ky su kien click
-            $('#btnUpload').click(function() {
-                $('#fileUpload').trigger('click');
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click')
+                $('#pictureUpload').show()
             });
-
+           
             // bat su kien change data cua fileUpload
             $('#fileUpload').change(function () {
                 //kiem tra trinh duyen co ho tro formdata hay ko
 
-                if (window.FormData !== undefined)
-                {
+                if (window.FormData !== undefined) {
                     var fileUpload = $('#fileUpload').get(0);
                     var files = fileUpload.files;
                     var formData = new FormData();
@@ -169,14 +163,13 @@
                         contentType: false,
                         processData: false,
                         data: formData,
-                        success: function(urlImage)
-                        {
-                            $('#pictureUpload').attr("src", urlImage);
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr("src", "/Content/image_webfim/" + urlImage);
                             $('#AnhPhim').val(urlImage);
+
                         },
-                        error: function(err)
-                        {
-                            alert('co loi khi upload: ',err.statusText)
+                        error: function (err) {
+                            alert('co loi khi upload: ', err.statusText)
                         }
 
                     });

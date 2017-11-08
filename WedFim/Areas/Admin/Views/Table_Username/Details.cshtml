@@ -10,56 +10,65 @@
 <div>
     <h4>Table_Username</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NameUser)
-        </dt>
+    <div class="table">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NameUser)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameUser)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NameUser)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PassUser)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PassUser)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PassUser)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PassUser)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.GioiTinh)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.GioiTinh)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Chucvu)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Chucvu)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Chucvu)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Chucvu)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageUser)
+            </dt>
 
-    </dl>
+            <dd>
+                <img id="anhphimxx" src="~/Content/image_webfim/@Model.ImageUser" width="400" style="max-width:400px;max-height:226px; border: 1px solid red" />
+            </dd>
+
+        </dl>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.IDUserName }) |

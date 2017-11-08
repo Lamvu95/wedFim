@@ -10,102 +10,86 @@
     TRANG CHÍNH
 }
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button>@Html.ActionLink("Create New", "Create")</button> 
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NameFim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AnhPhim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDTheLoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenDienVien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AnhDienVien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ThongTinBoFim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DaoDien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NamSanXuat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NoiSanXuat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDUserName)
-        </th>
-      
-        <th>
-            @Html.DisplayNameFor(model => model.Slide)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.url)
-        </th>
-        <th></th>
-    </tr>
+<div style="overflow-x:auto;height:400px;  border: 1px solid blue">
+    <table class="table table-bordered table">
+        <tr>
+            <th>
+                Tên Phim
+            </th>
+            <th>
+                Ảnh Phim
+            </th>
+            <th>
+                Mã Thể Loại
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameFim)
-        </td>
-        <td>
-            <img src="~/Content/image_webfim/@item.AnhPhim" style="width:50px; height:70px;" />
+            <th>
+                Đạo Diễn
+            </th>
+            <th>
+                Năm Sản Xuất
+            </th>
+            <th>
+                Nơi Sản Xuất
+            </th>
+            <th>
+                Rating
+            </th>
+            <th>
+                Người Up
+            </th>
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDTheLoai)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenDienVien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnhDienVien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThongTinBoFim)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DaoDien)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NamSanXuat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoiSanXuat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDUserName)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Slide)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.url)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDFim }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDFim }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDFim })
-        </td>
-    </tr>
-}
+            <th>
+                Link Phim
+            </th>
+            <th>
+                Tác Vụ
+            </th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameFim)
+                </td>
+                <td>
+                    <img src="~/Content/image_webfim/@item.AnhPhim" style="width:50px; height:70px;" />
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDTheLoai)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaoDien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamSanXuat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiSanXuat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDUserName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.url)
+                </td>
+                <td>
+                    <button>@Html.ActionLink("Edit", "Edit", new { id = item.IDFim })</button>
+                    <button> @Html.ActionLink("Details", "Details", new { id = item.IDFim })</button>
+                    <button> @Html.ActionLink("Delete", "Delete", new { id = item.IDFim })</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
