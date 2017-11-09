@@ -34,6 +34,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <link href="~/Assets/Admin/Cssss/Me.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -279,7 +280,7 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
+@*<li class="sidebar-search">
                         <div class="input-group custom-search-form">
                             @using (Html.BeginForm("Index", "TimKiem", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
                             {
@@ -293,10 +294,13 @@
                             }
 
                         </div>
-                        <!-- /input-group -->
+                         /input-group 
+                    </li>*@   
+                    <li>
+                        @Html.Action("user", "Login")
                     </li>
                     <li>
-                        <a href="@Url.Action("Index","Home")"><i class="fa fa-dashboard fa-fw"></i> Danh sach Phim</a>
+                        <a href="@Url.Action("Index","Home")"><i class="fa fa-dashboard fa-fw"></i> Trang Chủ</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Quanr ly du lieu<span class="fa arrow"></span></a>
@@ -310,12 +314,8 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-                    <li>
-                        <a href="@Url.Action("Index","AllTable")"><i class="fa fa-table fa-fw"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("UploadImage", "UpLoadAnh")"><i class="glyphicon glyphicon-eye-open"></i> up anh</a>
-                    </li>
+                   
+                  
                     <li class="active">
                         <a href="/Home">Login Page</a>
                         <!-- /.nav-second-level -->

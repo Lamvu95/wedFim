@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<Model.EF.Table_Username>
+@using PagedList.Mvc
+<h2>TÀI KHOẢN</h2>
+
+<div style="overflow-x:auto;height:400px;  border: 1px solid blue">
+    <table class="table table-bordered text-center">
+        <tr class="text-center">
+            <th class="text-center">
+                NameUser
+            </th>
+            <th class="text-center">
+                NgaySinh
+            </th>
+            <th class="text-center">
+                GioiTinh
+            </th>
+            <th class="text-center">
+                SDT
+            </th>
+            <th class="text-center">
+                Chucvu
+            </th>
+            <th class="text-center">
+                ImageUser
+            </th>
+            <th class="text-center">
+                Thao Tác
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GioiTinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Chucvu)
+                </td>
+                <td>
+                    <img src="~/Content/image_webfim/@item.ImageUser" style="width:80px; height:70px;" />
+                </td>
+                <td>
+                    <button>@Html.ActionLink("Xem Chi Tiết", "Details", new { id = item.IDUserName }) </button>
+                    <button>@Html.ActionLink("Xóa", "Delete", new { id = item.IDUserName })</button>
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>
+    <div style="float:right ">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @searchTerm = @ViewBag.SearchTerm }))
+    </div>

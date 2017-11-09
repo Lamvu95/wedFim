@@ -12,8 +12,11 @@ namespace WedFim.Areas.Admin
     public class TimKiemController : Controller
     {
         WebFilmEntities db = new WebFilmEntities();
-
-        public ActionResult Index(string searchTerm, int? page)
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public PartialViewResult partial_phim(string searchTerm, int? page)
         {
 
 
@@ -30,7 +33,26 @@ namespace WedFim.Areas.Admin
             }
             var phantrang = Phim;
             int pagenuber = (page ?? 1);
-            return View(phantrang.ToPagedList(page ?? 1, 4));
+            return PartialView(phantrang.ToPagedList(page ?? 1, 4));
+        }
+        public PartialViewResult partial_user(string searchTerm, int? page)
+        {
+
+
+            var Phim = from b in db.Table_Username select b;
+
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                Phim = db.Table_Username.OrderByDescending(b => b.IDUserName).Where(b => b.NameUser.Contains(searchTerm));
+                ViewBag.SearchTerm = searchTerm;
+            }
+            else
+            {
+                Phim = db.Table_Username.OrderByDescending(b => b.IDUserName);
+            }
+            var phantrang = Phim;
+            int pagenuber = (page ?? 1);
+            return PartialView(phantrang.ToPagedList(page ?? 1, 4));
         }
     }
 }

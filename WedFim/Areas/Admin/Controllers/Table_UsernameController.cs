@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model.EF;
+using Model.DAO;
+using PagedList;
 using WedFim.Common;
 
 namespace WedFim.Areas.Admin.Controllers
@@ -16,11 +18,26 @@ namespace WedFim.Areas.Admin.Controllers
         private WebFilmEntities db = new WebFilmEntities();
 
         // GET: Admin/Table_Username
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int? page)
         {
-            return View(db.Table_Username.ToList());
-        }
 
+
+            var Phim = from b in db.Table_Username select b;
+
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                Phim = db.Table_Username.OrderByDescending(b => b.IDUserName).Where(b => b.NameUser.Contains(searchTerm));
+                ViewBag.SearchTerm = searchTerm;
+            }
+            else
+            {
+                Phim = db.Table_Username.OrderByDescending(b => b.IDUserName);
+            }
+            var phantrang = Phim;
+            int pagenuber = (page ?? 1);
+            return View(phantrang.ToPagedList(page ?? 1, 4));
+        
+        }
         // GET: Admin/Table_Username/Details/5
         public ActionResult Details(int? id)
         {
@@ -89,9 +106,9 @@ namespace WedFim.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(table_Username).State = EntityState.Modified;
-                var a = Encryptor.MD5Hash(table_Username.PassUser);
-                table_Username.PassUser = a;
-                table_Username.ConfirmPassUser = a;
+                //var a = Encryptor.MD5Hash(table_Username.PassUser);
+                //table_Username.PassUser = a;
+                //table_Username.ConfirmPassUser = a;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

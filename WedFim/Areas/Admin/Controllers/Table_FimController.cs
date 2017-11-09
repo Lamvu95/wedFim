@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.DAO;
+using PagedList;
+
 namespace WedFim.Areas.Admin.Controllers
 {
     public class Table_FimController : BaseController
@@ -15,9 +17,22 @@ namespace WedFim.Areas.Admin.Controllers
         private WebFilmEntities db = new WebFilmEntities();
 
         // GET: Admin/Table_Fim
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm, int? page)
         {
-            return View(db.Table_Fim.ToList());
+            var Phim = from b in db.Table_Fim select b;
+
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                Phim = db.Table_Fim.OrderByDescending(b => b.IDFim).Where(b => b.NameFim.Contains(searchTerm));
+                ViewBag.SearchTerm = searchTerm;
+            }
+            else
+            {
+                Phim = db.Table_Fim.OrderByDescending(b => b.IDFim);
+            }
+            var phantrang = Phim;
+            int pagenuber = (page ?? 1);
+            return View(phantrang.ToPagedList(page ?? 1, 4));
         }
 
         // GET: Admin/Table_Fim/Details/5
@@ -142,5 +157,6 @@ namespace WedFim.Areas.Admin.Controllers
             
 
         }
+        
     }
 }

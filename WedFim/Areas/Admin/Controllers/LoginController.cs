@@ -32,6 +32,7 @@ namespace WedFim.Areas.Admin.Controllers
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     Session["name"] = user.NameUser;
                     Session["image"] = user.ImageUser;
+                    Session["id"] = user.IDUserName;
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -43,9 +44,10 @@ namespace WedFim.Areas.Admin.Controllers
         }
         public ActionResult user()
         {
-            
+
             ViewBag.image = Session["image"].ToString();
             ViewBag.username = Session["name"].ToString();
+            ViewBag.IdUser = Session["id"].ToString();
             return PartialView();
 
         }

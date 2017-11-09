@@ -1,95 +1,110 @@
-﻿@model IEnumerable<Model.EF.Table_Fim>
-
+﻿@model PagedList.IPagedList<Model.EF.Table_Fim>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@using (Html.BeginForm("Index", "Table_Fim", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search", id = "search-form", onsubmit = "return empty();" }))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Tìm kiếm Phim" name="SearchTerm" value="@ViewBag.SearchTerm" id="search-box" style="width:161px;">
 
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+}
 
 @section head{
-    TRANG CHÍNH
+Quản Lý Phim
 }
 <p>
-    <button>@Html.ActionLink("Create New", "Create")</button> 
+    <button>@Html.ActionLink("Create New", "Create")</button>
 </p>
-<div style="overflow-x:auto;height:400px;  border: 1px solid blue">
-    <table class="table table-bordered table">
-        <tr>
-            <th>
-                Tên Phim
-            </th>
-            <th>
-                Ảnh Phim
-            </th>
-            <th>
-                Mã Thể Loại
-            </th>
+<h2>Danh Sách Phim</h2>
 
-            <th>
-                Đạo Diễn
-            </th>
-            <th>
-                Năm Sản Xuất
-            </th>
-            <th>
-                Nơi Sản Xuất
-            </th>
-            <th>
-                Rating
-            </th>
-            <th>
-                Người Up
-            </th>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div style="overflow-x:auto;height:400px;  border: 1px solid blue">
+                <table class="table table-bordered table text-center">
+                    <tr>
+                        <th class="text-center">
+                            Tên Phim
+                        </th>
+                        <th class="text-center">
+                            Ảnh Phim
+                        </th>
+                        <th class="text-center">
+                            Mã Thể Loại
+                        </th>
 
-            <th>
-                Link Phim
-            </th>
-            <th>
-                Tác Vụ
-            </th>
-        </tr>
+                        <th class="text-center">
+                            Đạo Diễn
+                        </th>
+                        <th class="text-center">
+                            Năm Sản Xuất
+                        </th>
+                        <th class="text-center">
+                            Nơi Sản Xuất
+                        </th>
+                        <th class="text-center">
+                            Rating
+                        </th>
+                        <th class="text-center">
+                            Người Up
+                        </th>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NameFim)
-                </td>
-                <td>
-                    <img src="~/Content/image_webfim/@item.AnhPhim" style="width:50px; height:70px;" />
+                        <th class="text-center">
+                            Tác Vụ
+                        </th>
+                    </tr>
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IDTheLoai)
-                </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NameFim)
+                            </td>
+                            <td>
+                                <img src="~/Content/image_webfim/@item.AnhPhim" style="width:50px; height:70px;" />
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDTheLoai)
+                            </td>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DaoDien)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NamSanXuat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoiSanXuat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IDUserName)
-                </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DaoDien)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NamSanXuat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoiSanXuat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rating)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDUserName)
+                            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.url)
-                </td>
-                <td>
-                    <button>@Html.ActionLink("Edit", "Edit", new { id = item.IDFim })</button>
-                    <button> @Html.ActionLink("Details", "Details", new { id = item.IDFim })</button>
-                    <button> @Html.ActionLink("Delete", "Delete", new { id = item.IDFim })</button>
-                </td>
-            </tr>
-        }
+                            <td>
+                                <button>@Html.ActionLink("Edit", "Edit", new { id = item.IDFim })</button>
+                                <button> @Html.ActionLink("Details", "Details", new { id = item.IDFim })</button>
+                                <button> @Html.ActionLink("Delete", "Delete", new { id = item.IDFim })</button>
+                            </td>
+                        </tr>
+                    }
 
-    </table>
+                </table>
+            </div>
+            <div style="float:right ">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @searchTerm = @ViewBag.SearchTerm }))
+            </div>
+        </div>
+    </div>
 </div>
