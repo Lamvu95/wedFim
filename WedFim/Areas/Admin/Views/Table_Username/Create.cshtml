@@ -70,19 +70,46 @@
                 @Html.ValidationMessageFor(model => model.Chucvu, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImageUser, htmlAttributes: new { @class = "control-label col-md-2" })
-            <input class="form-control text-box single-line" id="ImageUser" name="ImageUser" type="text" value="" style=" display: none;">
-            @Html.ValidationMessageFor(model => model.ImageUser, "", new { @class = "text-danger" })
-            <img id="pictureUpload" width="400" style="max-width:400px;max-height:300px; border: 1px solid red" />
-            <div class="col-md-2">
-                <div class="form-inline">
-                    <input type="file" id="fileUpload" accept="images/*" name="fileUpload" style="display:none;" />
-                    <input type="button" id="btnUpload" value="Chọn ảnh" class=" btn btn-success" />
+   
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageUser, htmlAttributes: new { @class = "control-label col-md-2" })
+                <input class="form-control text-box single-line" id="ImageUser" name="ImageUser" type="text" value="" style=" display: none;">
+                <div id="dropArea" class="col-md-10">
+                    drop your files here
+                </div>
+                <ul class="list-group" id="ImageUser"></ul>
+                @Html.ValidationMessageFor(model => model.ImageUser, "", new { @class = "text-danger" })
+                <img id="pictureUpload" width="400" style="max-width:400px;max-height:300px; border: 1px solid red" />
+                <div class="col-md-2">
+                    <div class="form-inline">
+                        <input type="file" id="fileUpload" accept="images/*" name="fileUpload" style="display:none;" />
+                        <input type="button" id="btnUpload" value="Chọn ảnh" class=" btn btn-success" />
+                    </div>
                 </div>
             </div>
-        </div>
+
+            
+            
+            <style>
+                #dropArea {
+                    background: #b5b5b5;
+                    border: black dashed 1px;
+                    height: 50px;
+                    text-align: center;
+                    color: #fff;
+                }
+
+                .active-drop {
+                    background: #77bafa !important;
+                    border: solid 2px blue !important;
+                    opacity: .5;
+                    color: black !important;
+                }
+            </style>
+
+
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -95,16 +122,56 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section uploadccc
+    {
+       
+    <script src="~/Scripts/jquery.filedrop.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+    
+        $('#dropArea').filedrop({
+            url: '@Url.Action("Proceskeo")',
+            allowedfiletypes: ['image/jpg', 'image/png', 'image/jpeg', 'image/gif'],
+            allowedfileextensions: ['.jpg', '.png', '.jpeg', '.gif'],
+            paramname: 'files',
+            maxfile: 1,
+            maxfilesize: 5,// in MB
+            dragOver: function () {
+                $('#dropArea').addClass('active-drop');
+            },
+            dragLeave: function () {
+                $('#dropArea').removeClass('active-drop');
+            },
+            drop: function () {
+                $('#dropArea').removeClass('active-drop');
+            },
+            afterAll: function (e) {
+                $('#dropArea').html('file(s) uploaded successfully');
+            },
+            uploadFinished: function (i, file, response, time) {
+                $('#ImageUser').val(file.name);
+                $('#pictureUpload').attr("src", "/Content/image_webfim/" + file.name);
+             
+            }
+
+        })
+
+    })
+    </script>
+    
+}
 @section upload
 {
     <script>
         $(function () {
-            $('#pictureUpload').hide()
-           
+          
+            $('ui-datepicker-div').hide()
+
             //dang ky su kien click
             $('#btnUpload').click(function () {
                 $('#fileUpload').trigger('click')
-                $('#pictureUpload').show()
+              
             });
 
             // bat su kien change data cua fileUpload
@@ -139,20 +206,22 @@
 
         });
 
-</script>
-
-
+    </script>
 
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryui")
-<script>
-    $(document).ready(function () {
-        $("#NgaySinh").datepicker({
 
-            DatetimeFormat: "dd-MM-yyyy",
-            changeMonth: true,
-            changeYear: true
+@section Lich
+        {
+
+   
+        <script>
+        $(document).ready(function () {
+            $("#NgaySinh").datepicker({
+
+                DatetimeFormat: "dd-MM-yyyy",
+                changeMonth: true,
+                changeYear: true
+            });
         });
-    });
-</script>}
+        </script>
+    }

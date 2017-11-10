@@ -10,6 +10,7 @@ using Model.EF;
 using Model.DAO;
 using PagedList;
 using WedFim.Common;
+using System.IO;
 
 namespace WedFim.Areas.Admin.Controllers
 {
@@ -163,5 +164,16 @@ namespace WedFim.Areas.Admin.Controllers
 
 
         }
+        [HttpPost]
+        public ActionResult Proceskeo(IEnumerable<HttpPostedFileBase> files)
+        {
+            foreach (var file in files)
+            {
+                string filePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                file.SaveAs(Path.Combine(Server.MapPath("~/Content/image_webfim"), filePath));
+            }
+            return Json("thanh cong");
+        }
+
     }
 }
